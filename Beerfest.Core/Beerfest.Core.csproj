@@ -57,8 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataServices\BeerRepository.cs" />
     <Compile Include="DataServices\DataServicesNinjectModule.cs" />
     <Compile Include="DataServices\StyleGroupRepository.cs" />
+    <Compile Include="Entities\Beer.cs" />
     <Compile Include="Entities\StyleGroup.cs" />
     <Compile Include="Infrastructure\Mongo\IQueryableMongoExtensions.cs" />
     <Compile Include="Infrastructure\Mongo\LowerCaseMemberConvention.cs" />

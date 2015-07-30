@@ -1,4 +1,5 @@
-﻿using Ninject.Modules;
+﻿using Beerfest.Core.Entities;
+using Ninject.Modules;
 
 namespace Beerfest.Core.DataServices {
 
@@ -6,6 +7,7 @@ namespace Beerfest.Core.DataServices {
 
         public override void Load() {
             Bind<IStyleGroupRepository>().To<StyleGroupRepository>().InSingletonScope();
+            Bind<IBeerRepository>().To<BeerRepository>().InSingletonScope();
         }
 
     }

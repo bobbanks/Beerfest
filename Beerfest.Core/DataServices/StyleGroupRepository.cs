@@ -43,5 +43,4 @@ namespace Beerfest.Core.DataServices {
         }
 
     }
-
 }

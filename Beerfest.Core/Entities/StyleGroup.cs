@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Beerfest.Core.Infrastructure.Mongo;
+using MongoDB.Bson;
 
 namespace Beerfest.Core.Entities {
     public class StyleGroup : MongoEntity {
