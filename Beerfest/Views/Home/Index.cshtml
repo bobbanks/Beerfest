@@ -1,4 +1,71 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model Dictionary<string, List<Beerfest.Models.StyleGroupModel>>
+
+@{
+    ViewBag.Title = "B6 Beer List";
 }
-<h1>Test!</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <ul class="nav nav-pills" role="tablist" id="myTabs">
+                <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="pill">All</a></li>
+                <li role="presentation"><a href="#ales" aria-controls="ales" role="tab" data-toggle="pill">Ales</a></li>
+                <li role="presentation"><a href="#lagers" aria-controls="lagers" role="tab" data-toggle="pill">Lagers</a></li>
+                <li role="presentation"><a href="#hybrids" aria-controls="hybrids" role="tab" data-toggle="pill">Hybrids</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="all">
+                    @foreach (var sg in Model["all"])
+                    {
+                        <div class="panel" style="border-color: #@(sg.Color)">
+                            <div class="panel-heading" style="background-color: #@(sg.Color); border-color:@(sg.Color)">
+                                <h3 class="panel-title">@sg.Name</h3>
+                            </div>
+                            <div class="panel-body">
+                                Panel content
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div role="tabpanel" class="tab-pane" id="ales">
+                    @foreach (var sg in Model["ale"])
+                    {
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">@sg.Name</h3>
+                            </div>
+                            <div class="panel-body">
+                                Panel content
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div role="tabpanel" class="tab-pane" id="lagers">
+                    @foreach (var sg in Model["lager"])
+                    {
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">@sg.Name</h3>
+                            </div>
+                            <div class="panel-body">
+                                Panel content
+                            </div>
+                        </div>
+                    }                    
+                </div>
+                <div role="tabpanel" class="tab-pane" id="hybrids">
+                    @foreach (var sg in Model["hybrid"])
+                    {
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">@sg.Name</h3>
+                            </div>
+                            <div class="panel-body">
+                                Panel content
+                            </div>
+                        </div>
+                    }                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -44,7 +44,8 @@ namespace Beerfest.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-
+                
+                
                 RegisterServices(kernel);
                 return kernel;
             }
@@ -61,6 +62,7 @@ namespace Beerfest.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Load("Beerfest.Core.dll");
         }        
     }
 }
