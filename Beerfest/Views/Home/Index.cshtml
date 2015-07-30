@@ -29,8 +29,8 @@
                 <div role="tabpanel" class="tab-pane" id="ales">
                     @foreach (var sg in Model["ale"])
                     {
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
+                        <div class="panel" style="border-color: #@(sg.Color)">
+                            <div class="panel-heading" style="background-color: #@(sg.Color); border-color:@(sg.Color)">
                                 <h3 class="panel-title">@sg.Name</h3>
                             </div>
                             <div class="panel-body">
@@ -42,8 +42,8 @@
                 <div role="tabpanel" class="tab-pane" id="lagers">
                     @foreach (var sg in Model["lager"])
                     {
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
+                        <div class="panel" style="border-color: #@(sg.Color)">
+                            <div class="panel-heading" style="background-color: #@(sg.Color); border-color:@(sg.Color)">
                                 <h3 class="panel-title">@sg.Name</h3>
                             </div>
                             <div class="panel-body">
@@ -55,8 +55,8 @@
                 <div role="tabpanel" class="tab-pane" id="hybrids">
                     @foreach (var sg in Model["hybrid"])
                     {
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
+                        <div class="panel" style="border-color: #@(sg.Color)">
+                            <div class="panel-heading" style="background-color: #@(sg.Color); border-color:@(sg.Color)">
                                 <h3 class="panel-title">@sg.Name</h3>
                             </div>
                             <div class="panel-body">
