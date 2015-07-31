@@ -1,71 +1,143 @@
-﻿@model Dictionary<string, List<Beerfest.Models.StyleGroupModel>>
+﻿@model Dictionary<string, List<Beerfest.Models.BeerModel>>
 
 @{
-    ViewBag.Title = "B6 Beer List";
+    ViewBag.Title = "B6 - 2015";
 }
-<div class="row">
-    <div class="col-md-12">
-        <div>
-            <ul class="nav nav-pills" role="tablist" id="myTabs">
+<style>
+    body { padding-top: 70px; }
+    .navbar-text {
+        margin-right: 15px !important;
+        margin-left: 15px !important;
+    }
+
+    .col-md-12, .col-sm-6 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .panel-footer table {
+        width: 100%;
+    }
+
+    table tr td {
+        border-right: solid 1px #ddd;
+        padding: 10px 10px;
+    }
+
+    td.ibu {
+        width: 50%;
+        text-align: center;
+    }
+
+    td.abv {
+        width: 50%;
+        text-align: center;
+    }
+
+    a.checkin {
+        background-image: url(/Content/beer_icon_check.png);
+        background-color: #ffcc00;
+        display: inline-block;
+        vertical-align: top;
+        height: 52px;
+        width: 52px;
+        text-indent: -9999px;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    a.checkin2 {
+        /*background-color: #ffcc00;
+        border: #ffcc00;*/
+        margin-top: 10px;
+    }
+
+    @@media (min-width: 768px) {
+        .col-md-12, .col-sm-6 {
+            padding-left: 15px;
+            padding-right: 15px;
+        }        
+    }
+</style>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid" style="margin-left:15px;">
+
+        @*<p class="navbar-text"><strong>B6 Beerfest 2015</strong></p>*@
+        <div class=" navbar-collapse">
+            <ul class="nav navbar-nav nav-pills" role="tablist" id="myTabs">
                 <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="pill">All</a></li>
                 <li role="presentation"><a href="#ales" aria-controls="ales" role="tab" data-toggle="pill">Ales</a></li>
                 <li role="presentation"><a href="#lagers" aria-controls="lagers" role="tab" data-toggle="pill">Lagers</a></li>
                 <li role="presentation"><a href="#hybrids" aria-controls="hybrids" role="tab" data-toggle="pill">Hybrids</a></li>
+                <li class="dropdown" style="width:75px">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="setSortOrder" data-sort="name" href="?order=name">Name</a></li>
+                        <li><a class="setSortOrder" data-sort="abv" href="#">ABV</a></li>
+                        <li><a class="setSortOrder" data-sort="ibu" href="#">IBU</a></li>
+                    </ul>
+                </li>
             </ul>
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="all">
-                    @foreach (var sg in Model["all"])
-                    {
-                        <div class="panel" style="border-color: #@(sg.Color)">
-                            <div class="panel-heading" style="background-color: #@(sg.Color); border-color:@(sg.Color)">
-                                <h3 class="panel-title">@sg.Name</h3>
-                            </div>
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                        </div>
-                    }
-                </div>
-                <div role="tabpanel" class="tab-pane" id="ales">
-                    @foreach (var sg in Model["ale"])
-                    {
-                        <div class="panel" style="border-color: #@(sg.Color)">
-                            <div class="panel-heading" style="background-color: #@(sg.Color); border-color:@(sg.Color)">
-                                <h3 class="panel-title">@sg.Name</h3>
-                            </div>
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                        </div>
-                    }
-                </div>
-                <div role="tabpanel" class="tab-pane" id="lagers">
-                    @foreach (var sg in Model["lager"])
-                    {
-                        <div class="panel" style="border-color: #@(sg.Color)">
-                            <div class="panel-heading" style="background-color: #@(sg.Color); border-color:@(sg.Color)">
-                                <h3 class="panel-title">@sg.Name</h3>
-                            </div>
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                        </div>
-                    }                    
-                </div>
-                <div role="tabpanel" class="tab-pane" id="hybrids">
-                    @foreach (var sg in Model["hybrid"])
-                    {
-                        <div class="panel" style="border-color: #@(sg.Color)">
-                            <div class="panel-heading" style="background-color: #@(sg.Color); border-color:@(sg.Color)">
-                                <h3 class="panel-title">@sg.Name</h3>
-                            </div>
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                        </div>
-                    }                    
-                </div>
+            
+        </div>
+    </div>
+</nav>
+
+@*<div class="row-fluid">
+    <div class="col-xs-12">
+        <div>
+            <ul class="nav nav-tabs" role="tablist" id="myTabs">
+                <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+                <li role="presentation"><a href="#ales" aria-controls="ales" role="tab" data-toggle="tab">Ales</a></li>
+                <li role="presentation"><a href="#lagers" aria-controls="lagers" role="tab" data-toggle="tab">Lagers</a></li>
+                <li role="presentation"><a href="#hybrids" aria-controls="hybrids" role="tab" data-toggle="tab">Hybrids</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>*@
+
+<div class="tab-content" style="margin-top: 10px;">
+    <div role="tabpanel" class="tab-pane active" id="all">
+        <div class="row-fluid">
+            <div class="col-md-12">
+                @Html.Partial("BeerList", Model["all"])
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="ales">
+        <div class="row-fluid">
+            <div class="col-md-12">
+                @Html.Partial("BeerList", Model["ale"])
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="lagers">
+        <div class="row-fluid">
+            <div class="col-md-12">
+                @Html.Partial("BeerList", Model["lager"])
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="hybrids">
+        <div class="row-fluid">
+            <div class="col-md-12">
+                @Html.Partial("BeerList", Model["hybrid"])
             </div>
         </div>
     </div>
 </div>
+@section scripts {
+    <script>
+        $(function() {
+            $(".setSortOrder").on("click", function(e) {
+                e.preventDefault();
+                var sortField = $(this).data('sort');
+                $.cookie("sortField", sortField);
+                location.reload();
+            });
+
+            $('#myTabs').stickyTabs();
+        })
+    </script>
+}

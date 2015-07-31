@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Beerfest.Core.DataServices;
 using Beerfest.Core.Entities;
+using Beerfest.Core.Infrastructure;
 using Beerfest.Models;
 
 namespace Beerfest.Controllers
@@ -21,45 +22,56 @@ namespace Beerfest.Controllers
         }
 
         public ActionResult Index() {
-//            var styleGroups = _styleGroupRepository.GetByType("");
-//
-//            var model = new Dictionary<string, List<StyleGroupModel>> {
-//                {"all", new List<StyleGroupModel>()},
-//                {"ale", new List<StyleGroupModel>()},
-//                {"lager", new List<StyleGroupModel>()},
-//                {"hybrid", new List<StyleGroupModel>()},
-//            };
-//
-//            foreach (var styleGroup in styleGroups) {
-//                model["all"].Add(new StyleGroupModel(styleGroup));
-//                model[styleGroup.Type].Add(new StyleGroupModel(styleGroup));
-//            }
+            
+            var sortCookie = Request.Cookies["sortField"];
 
-            var beers = GetBeerDictionary();
+            var sortField = "name";
+            if (sortCookie != null) {
+                sortField = sortCookie.Value;
+            }
 
-            return Json(beers, JsonRequestBehavior.AllowGet);
+            var beers = GetBeerDictionary(sortField);
+
+            return View(beers);
         }
 
 
-        private Dictionary<string, List<Beer>> GetBeerDictionary() {
+        private Dictionary<string, List<BeerModel>> GetBeerDictionary(string sortField) {
 
-            var beers = _beerRepository.GetAll().OrderBy(b => b.Name);
+            var beers = _beerRepository.GetAll();
+
+            switch (sortField) {
+                case "name":
+                    beers = beers.OrderBy(b => b.Name);
+                    break;
+                case "abv":
+                    beers = beers.OrderByDescending(b => b.Abv);
+                    break;
+                case "ibu":
+                    beers = beers.OrderByDescending(b => b.Ibu);
+                    break;
+            }
+
             var styleGroups = _styleGroupRepository.GetAll().ToList();
 
-            var dict = new Dictionary<string, List<Beer>>() {
-                {"all", new List<Beer>()},
-                {"ale", new List<Beer>()},
-                {"lager", new List<Beer>()},
-                {"hybrid", new List<Beer>()}
+            var dict = new Dictionary<string, List<BeerModel>>() {
+                {"all", new List<BeerModel>()},
+                {"ale", new List<BeerModel>()},
+                {"lager", new List<BeerModel>()},
+                {"hybrid", new List<BeerModel>()}
             };
 
             foreach (var beer in beers) {
-                dict["all"].Add(beer);
-                var styleType = styleGroups.FirstOrDefault(sg => sg.Styles.Contains(beer.Style));
-                if (styleType != null) {
-                    dict[styleType.Type].Add(beer);
+                if (!beer.Name.IsNullOrWhiteSpace()) {
+                    var styleType = styleGroups.FirstOrDefault(sg => sg.Styles.Contains(beer.Style));
+                    if (styleType != null) {
+                        var model = new BeerModel(beer, styleType.Type);
+                        dict["all"].Add(model);
+                        dict[styleType.Type].Add(model);
+                    } else {
+                        //throw new ApplicationException(string.Format("Could not find style '{0}' for '{1}'", beer.Style, beer.Name));
+                    }
                 }
-
             }
 
             return dict;

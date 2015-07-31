@@ -1,0 +1,29 @@
+﻿@model List<Beerfest.Models.BeerModel>
+
+<div class="row-fluid">
+    @foreach (var beer in Model)
+    {
+        <div class="col-sm-6">
+            <div class="panel panel-default" style="border-color:#@beer.Color;">
+                <div class="panel-heading" style="background-color:#@beer.Color;">
+                    <strong>@beer.Name</strong>
+                    <span class="pull-right"><strong>@(beer.ScoreToDisplay) </strong></span>
+                </div>
+                <div class="panel-body">
+                    <img src="@beer.ImageUrl" height="100" class="pull-right" style="padding-left: 5px;" />
+                    @beer.Brewery<br/>
+                    @beer.Style<br />
+                    <a class="btn btn-default checkin2" href="https://untappd.com/qr/beer/@(beer.UntappdBeerId)" >CHECK-IN</a>
+                </div>
+                <div class="panel-footer clearfix" style="padding:0;">
+                    <table>
+                        <tr>
+                            <td class="abv"><strong>ABV: </strong>@(beer.Abv == null ? "N/A" : beer.Abv + "%")</td>
+                            <td class="ibu"><strong>IBU: </strong>@(beer.Ibu == null ? "N/A" : beer.Ibu + "")</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>
