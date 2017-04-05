@@ -8,6 +8,8 @@ using Beerfest.Core.Entities;
 using Beerfest.Core.Infrastructure;
 using Beerfest.Models;
 
+
+
 namespace Beerfest.Controllers
 {
     public class HomeController : Controller {
